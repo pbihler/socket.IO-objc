@@ -82,7 +82,12 @@
     NSMutableArray *encoded = [NSMutableArray arrayWithObject:typeAsNumber];
     
     NSNumber *typeNumber = [self typeAsNumber];
-    if (!(self.endpoint == nil || [@"/" isEqualToString:self.endpoint]) && [typeNumber intValue] != 6 && [typeNumber intValue] != 2)
+    
+    BOOL endpointIsEmpty = ! [self.endpoint length];
+    BOOL endpointIsRoot = [@"/" isEqualToString:self.endpoint];
+    BOOL endpointIsDefault = endpointIsEmpty || endpointIsRoot;
+    
+    if (! endpointIsDefault && [typeNumber intValue] != 6 && [typeNumber intValue] != 2)
     {
         [encoded addObject:[self.endpoint stringByAppendingString:@","]];
     } 
